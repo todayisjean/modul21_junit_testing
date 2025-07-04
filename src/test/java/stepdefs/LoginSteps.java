@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
+import pages.LoginPage;
 import util.DriverManager;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,19 +17,11 @@ import java.time.Duration;
 public class LoginSteps {
     private WebDriver driver;
     private WebDriverWait wait;
-
-    @FindBy(id = "user-name")
-    WebElement emailField;
-
-    @FindBy(id = "password")
-    WebElement passwordField;
-
-    @FindBy(css = "input[type='submit']")
-    WebElement loginButton;
+    private LoginPage page;
 
     public LoginSteps() {
         driver = DriverManager.getDriver();
-        PageFactory.initElements(driver, this);
+        page = new LoginPage();
     }
 
     @Given("I am on the login page")
@@ -41,19 +34,17 @@ public class LoginSteps {
 
     @When("I enter {string} in the email field")
     public void i_enter_in_the_email_field(String email) {
-        emailField.clear();
-        emailField.sendKeys(email);
+        page.setEmail(email);
     }
 
     @When("I enter {string} in the password field")
     public void i_enter_in_the_password_field(String password) {
-        passwordField.clear();
-        passwordField.sendKeys(password);
+        page.setPassword(password);
     }
 
     @When("I click the login button")
     public void i_click_the_login_button() {
-        loginButton.click();
+        page.pressLoginButton();
     }
 
     @Then("I should be redirected to the dashboard")
@@ -102,12 +93,12 @@ public class LoginSteps {
 
     @When("I leave the email field empty")
     public void i_leave_the_email_field_empty() {
-        assertEquals(true, emailField.getText().isEmpty());
+        assertEquals(true, page.getEmail().isEmpty());
     }
 
     @When("I leave the password field empty")
     public void i_leave_the_password_field_empty() {
-        assertEquals(true, passwordField.getText().isEmpty());
+        assertEquals(true, page.getPassword().isEmpty());
     }
 
     @After
