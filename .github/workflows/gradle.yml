@@ -86,9 +86,10 @@ jobs:
         # include-hidden-files:
 
     - name: Generate Allure report
+      run: ./gradlew allureReport
       # You may pin to the exact commit or the version.
       # uses: afiore/action-allure-report@e43ebd6f4f4c74b07b1eb02f042902bbe6786a19
-      uses: QuintilianoNery/action-allure-report-V2@0.2.0
+      #uses: QuintilianoNery/action-allure-report-V2@0.2.0
       # with:
         # Allure test result data dir
         # results-dir: # default is allure-results
